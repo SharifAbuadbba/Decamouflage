@@ -21,6 +21,6 @@ Reference
 
 1. Qixue Xiao*, Yufei Chen*, Chao Shen, Yu Chen, and Kang Li. Seeing is Not Believing: Camouflage Attacks on Image Scaling Algorithms, USENIX Security 2019.
 2. Yufei Chen, Chao Shen, Cong Wang, Qixue Xiao, Kang Li, and Yu Chen. Scaling Camouflage: Content Disguising Attack Against Computer Vision Applications, IEEE TDSC 2020.
-    (https://github.com/yfchen1994/scaling_camouflage)
+   https://github.com/yfchen1994/scaling_camouflage
 3. NeurIPS 2017 Adversarial Attacks and Defences Competition Track image dataset: https://www.kaggle.com/c/nips-2017-defense-against-adversarial-attack
 4. Caltech 256 image dataset: https://www.kaggle.com/jessicali9530/caltech256
