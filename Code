@@ -1,0 +1,204 @@
+from array import array
+import os
+import sys
+import time
+
+from PIL import Image, ImageFilter
+from skimage import measure
+
+
+from PIL import Image
+
+from math import log10, sqrt
+import cv2
+import numpy as np
+
+import csv
+
+
+def mse(imageA, imageB):
+    # the 'Mean Squared Error' between the two images is the
+    # sum of the squared difference between the two images;
+    # NOTE: the two images must have the same dimension
+    err = np.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
+    err /= float(imageA.shape[0] * imageA.shape[1])
+
+    # return the MSE, the lower the error, the more "similar"
+    # the two images are
+    return err
+
+'''
+def PSNR(original, compressed):
+    mse = np.mean((original - compressed) ** 2)
+    if (mse == 0):  # MSE is zero means no noise is present in the signal .
+        # Therefore PSNR have no importance.
+        return 100
+    max_pixel = 255.0
+    psnr = 20 * log10(max_pixel / sqrt(mse))
+    return psnr
+'''
+
+def compare_images(imageA, imageB, h1, h2, i, j,original_max_filter,original_min_filter,q,q2, title):
+
+
+    m = mse(imageA, imageB)
+
+    s = measure.compare_ssim(imageA, imageB, multichannel=True, gaussian_weights=True, sigma=1.5)
+
+    # metric_val = cv2.compareHist(h1, h2, cv2.HISTCMP_CORREL)
+    #value = PSNR(imageA, imageB)
+
+
+    m_2 = mse(imageA, original_max_filter)
+
+    s_2 = measure.compare_ssim(imageA, original_max_filter, multichannel=True, gaussian_weights=True, sigma=1.5)
+
+    # metric_val = cv2.compareHist(h1, h2, cv2.HISTCMP_CORREL)
+    #value_2 = PSNR(imageA, original_max_filter)
+
+
+
+    m_2_2 = mse(imageA, original_min_filter)
+
+
+
+    s_2_2 = measure.compare_ssim(imageA, original_min_filter, multichannel=True, gaussian_weights=True, sigma=1.5)
+
+    metric_val = cv2.compareHist(h1, h2, cv2.HISTCMP_CORREL)
+    value_2_2 = PSNR(imageA, original_min_filter)
+
+
+   # f = open('D:\\9. 호주\\test\\0. a.result\\224_result_5x5_another2.csv', 'a', newline='')
+   # wr = csv.writer(f)
+   # wr.writerow([i, j, m, s, m_2,s_2,m_2_2,s_2_2,q,q2])
+
+    # metric_val = cv2.compareHist(h1, h2, cv2.HISTCMP_CORREL)
+    value_2_2 = PSNR(imageA, original_min_filter)
+
+
+    #print(m, s, value)
+    #print(m_2,s_2,value_2)
+    #print(m_2_2, s_2_2, value_2_2)
+    #print(q,q2)
+
+    #if (m<5000 or m<0.5 or m_2<6000 or )
+
+    f = open('C:\\Users\\KIM108\\PycharmProjects\\test\\AResult\\atttt', 'a', newline='')
+    wr = csv.writer(f)
+    #wr.writerow([i, j, m, s, value,m_2,s_2,value_2,m_2_2,s_2_2,value_2_2,q,q2])
+    wr.writerow([i, j, m, s, m_2,s_2,m_2_2,s_2_2,value_2_2,q,q2])
+
+c=0
+cnt=0
+cnt2=0
+cnt_contours=0
+cnt_contours2=0
+
+for i, j in zip(os.listdir("D:\\test\\0_second_att_image_another_1000"), os.listdir("D:\\test\\1_10_1000_attack_out_scale_up")):
+
+    r_contours2 = ''
+    r_contours1 = ''
+
+    print(i,j,cnt)
+
+
+    try:
+
+        original = cv2.imread("0_second_att_image_another_1000/"+i)
+        contrast = cv2.imread("1_10_1000_attack_out_scale_up/" + j)
+
+        original_im1 = Image.open('0_second_att_image_another_1000/'+i)
+
+        original_3 = cv2.imread("0_second_att_image_another_1000/" + i,2)
+
+
+        original_v1 = original
+        contrast_v1 = contrast
+
+
+        hist_img1 = cv2.calcHist([original], [0], None, [256], [0, 256])
+        h1 = cv2.normalize(hist_img1, hist_img1, 0, 255, cv2.NORM_MINMAX)
+        hist_img2 = cv2.calcHist([contrast], [0], None, [256], [0, 256])
+        h2 = cv2.normalize(hist_img2, hist_img2, 0, 255, cv2.NORM_MINMAX)
+
+
+        original_max_filter = original_im1.filter(ImageFilter.MaxFilter(size=3))
+        original_min_filter = original_im1.filter(ImageFilter.MinFilter(size=3))
+
+
+        result = original_max_filter.save('test_2_origin_max_another_1000/max_origin'+str(i)+'.jpg')
+        result2 = original_min_filter.save('test_2_origin_min_another_1000/min_origin'+str(i)+'.jpg')
+
+
+        original_max_filter_2 = cv2.imread('test_2_origin_max_another_1000/max_origin'+str(i)+'.jpg')
+        original_min_filter_2 = cv2.imread('test_2_origin_min_another_1000/min_origin'+str(i)+'.jpg')
+
+     
+        f = np.fft.fft2(original_3)
+        fshift = np.fft.fftshift(f)
+        magnitude_spectrum = 20 * np.log(np.abs(fshift))
+
+        filename = 'test_orgin_mag_another_1000/test_or_mag_' + str(i) + '.jpg'
+
+        w=cv2.imwrite(filename, magnitude_spectrum)
+
+        img = cv2.imread('test_orgin_mag_another_1000/test_or_mag_'+str(i)+'.jpg')
+
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        ret, thresh = cv2.threshold(gray, 250, 255, cv2.THRESH_BINARY)
+
+
+        medianFiltered = cv2.medianBlur(thresh, 3)
+        medianFiltered1_2 = cv2.medianBlur(medianFiltered, 3)
+        blur = cv2.GaussianBlur(medianFiltered, (21, 21), 0)
+
+        contours, hierarchy = cv2.findContours(blur, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        q = cv2.drawContours(img, contours, -1, (0, 0, 255), 5)
+
+
+
+        gray2 = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # ret2, thresh2 = cv2.threshold(gray2,250,255,cv2.THRESH_BINARY)
+        ret2, thresh2 = cv2.threshold(gray2, 240, 255, cv2.THRESH_BINARY)
+        medianFiltered2 = cv2.medianBlur(thresh2, 3)
+        # medianFiltered2_2 = cv2.medianBlur(medianFiltered2, 7)
+        blur2 = cv2.GaussianBlur(medianFiltered2, (21, 21), 0)
+
+        # cv2.imshow('Binary image of origin_magnitude ',medianFiltered2)
+        # cv2.waitKey(0)
+
+        # contours2, hierarchy2 = cv2.findContours(medianFiltered2, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contours2, hierarchy2 = cv2.findContours(blur2, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        q2 = cv2.drawContours(img, contours2, -1, (0, 0, 255), 5)
+
+
+        #plt.imshow(q2)
+        #plt.show()
+
+        if (len(contours) == 1) & (len(contours2) == 3):
+            cnt2 += 1
+        if (len(contours) == 1):
+            cnt_contours += 1
+            if (len(contours2) == 3):
+                cnt += 1
+
+        if (len(contours2) == 3):
+            cnt_contours2 += 1
+
+
+        #c+=1
+
+
+        start = time.time()
+
+        compare_images(original_v1, contrast_v1, h1, h2, i, j,original_max_filter_2,original_min_filter_2,len(contours),len(contours2), "original_image vs. original_scaleup_image")
+
+        print(c, ": time :", time.time() - start)
+
+        c += 1
+
+    except:
+        continue
