@@ -12,7 +12,7 @@ We develop three different detection methods.
 Summary of code
 ------------------------------------------------------------------------------------------------------------------------------
 
-We uploaded the code for Decamouflage Which included the proposed method: scaling, filtering, and steganalysis. 
+We uploaded the sample code for Decamouflage Which included the proposed method: scaling, filtering, and steganalysis. 
 We used the NeurIPS 2017 Adversarial Attacks and Defences Competition Track image dataset and to find the optimal thresholds for Decamouflage 
 and used the Caltech 256 image dataset for testing. You can see more detail for datasets and Scaling attack open-source in Reference.
 
