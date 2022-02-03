@@ -27,10 +27,10 @@ Reference
 
 Authors
 ------------------------------------------------------------------------------------------------------------------------------
-Bedeuro Kim (kimbdr@skku.edu), Sungkyunkwan University
-Alsharif Abuadbba (sharif.abuadbba@data61.csiro.au), CSIRO’s Data61
-Yansong Gao (yansong.gao@data61.csiro.au), Nanjing University of Science and Technology
-Yifeng Zheng (yifeng.zheng@hit.edu.cn), Harbin Institute of Technology
-Muhammad Ejaz Ahmed (ejaz.ahmed@data61.csiro.au), CSIRO’s Data61
-Surya Nepal (surya.nepal@data61.csiro.au), CSIRO’s Data61
-Hyoungshick Kim (hyoung@skku.edu), Sungkyunkwan University
+* Bedeuro Kim (kimbdr@skku.edu), Sungkyunkwan University
+* Alsharif Abuadbba (sharif.abuadbba@data61.csiro.au), CSIRO’s Data61
+* Yansong Gao (yansong.gao@data61.csiro.au), Nanjing University of Science and Technology
+* Yifeng Zheng (yifeng.zheng@hit.edu.cn), Harbin Institute of Technology
+* Muhammad Ejaz Ahmed (ejaz.ahmed@data61.csiro.au), CSIRO’s Data61
+* Surya Nepal (surya.nepal@data61.csiro.au), CSIRO’s Data61
+* Hyoungshick Kim (hyoung@skku.edu), Sungkyunkwan University
