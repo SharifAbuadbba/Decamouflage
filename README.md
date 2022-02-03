@@ -24,3 +24,13 @@ Reference
    https://github.com/yfchen1994/scaling_camouflage
 3. NeurIPS 2017 Adversarial Attacks and Defences Competition Track image dataset: https://www.kaggle.com/c/nips-2017-defense-against-adversarial-attack
 4. Caltech 256 image dataset: https://www.kaggle.com/jessicali9530/caltech256
+
+Authors
+------------------------------------------------------------------------------------------------------------------------------
+Bedeuro Kim (kimbdr@skku.edu), Sungkyunkwan University
+Alsharif Abuadbba (sharif.abuadbba@data61.csiro.au), CSIRO’s Data61
+Yansong Gao (yansong.gao@data61.csiro.au), Nanjing University of Science and Technology
+Yifeng Zheng (yifeng.zheng@hit.edu.cn), Harbin Institute of Technology
+Muhammad Ejaz Ahmed (ejaz.ahmed@data61.csiro.au), CSIRO’s Data61
+Surya Nepal (surya.nepal@data61.csiro.au), CSIRO’s Data61
+Hyoungshick Kim (hyoung@skku.edu), Sungkyunkwan University
